@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Single Page Application</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <body>
+    	<h1>My Single Page Application</h1>
+    	<h2>by K33G_org</h2>
+
+        <!-- définition du template -->
+        <script type="text/template" id="humans_list_template">
+
+            <ul>{{#humans}}
+                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
+            {{/humans}}</ul>
+            
+        </script>
+        <!-- les résultats viendront ici -->
+        <div id="humans_list"></div>
+
+        <hr>
+        <!-- définition du template -->
+        <script type="text/template" id="humans_list_again_template">
+
+            <ul>
+                <% _.each(humans ,function(human){ %>
+                    <li> 
+                        <%= human.get("id") %> 
+                        <%= human.get("firstName") %> 
+                        <%= human.get("lastName") %> 
+                        <%= human.get("age") ? human.get("age") : "<b>???</b>" %>
+                    </li>
+                <% }); %>
+            </ul>
+
+        </script>
+        <!-- les résultats viendront ici -->
+        <div id="humans_list_again"></div>
+
+
+    </body>
+
+    <script src="assets/javascripts/yepnope.js"></script>
+    <script src="assets/main.js"></script>
+
+</html>

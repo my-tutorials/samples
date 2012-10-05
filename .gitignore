@@ -1,0 +1,6 @@
+.DS_Store
+spa/.settings/*
+spa/conf/evolutions/*
+spa/*.db
+spa/project/*
+spa/target/*

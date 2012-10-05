@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET / controllers.Assets.at(path="/public", file="index.html")
+
+#Création
+POST /human  controllers.Humans.save()
+
+#Mise à jour
+PUT /human  controllers.Humans.save()
+
+#Rechercher par Id
+GET  /human/:id  controllers.Humans.getById(id: Long)
+
+#Supprimer par Id
+DELETE /human/:id  controllers.Humans.delete(id: Long)
+
+#Retrouver tous les éléments
+GET /humans controllers.Humans.getAll()
+
+#Retrouver certains éléments
+GET /humans/:fieldName/equals/:value controllers.Humans.query(fieldName: String, value: String)
+
+#GET /humans/:fieldName/equals/:value controllers.Humans.query(fieldName: String, value)
