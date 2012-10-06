@@ -13,7 +13,7 @@
         <script type="text/template" id="humans_list_template">
 
             <ul>{{#humans}}
-                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
+                <li>{{id}} {{firstName}} {{lastName}} {{age}} {{address.town}}</li>
             {{/humans}}</ul>
             
         </script>
@@ -21,6 +21,21 @@
         <div id="humans_list"></div>
 
         <hr>
+
+        <!-- définition du template -->
+        <script type="text/template" id="addresses_list_template">
+
+            <ul>{{#addresses}}
+                <li>{{id}} {{town}} {{land}}</li>
+            {{/addresses}}</ul>
+            
+        </script>
+        <!-- les résultats viendront ici -->
+        <div id="addresses_list"></div>
+
+        <hr>
+
+
         <!-- définition du template -->
         <script type="text/template" id="humans_list_again_template">
 

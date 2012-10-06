@@ -10,10 +10,10 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET / controllers.Assets.at(path="/public", file="index.html")
 
 #Création
-POST /human  controllers.Humans.save()
+POST /human  controllers.Humans.create()
 
 #Mise à jour
-PUT /human  controllers.Humans.save()
+PUT /human/:id  controllers.Humans.update(id: Long)
 
 #Rechercher par Id
 GET  /human/:id  controllers.Humans.getById(id: Long)
@@ -28,3 +28,23 @@ GET /humans controllers.Humans.getAll()
 GET /humans/:fieldName/equals/:value controllers.Humans.query(fieldName: String, value: String)
 
 #GET /humans/:fieldName/equals/:value controllers.Humans.query(fieldName: String, value)
+
+### --- Adresses
+
+#Création
+POST /address  controllers.Addresses.create()
+
+#Mise à jour
+PUT /address/:id  controllers.Addresses.update(id: Long)
+
+#Rechercher par Id
+GET  /address/:id  controllers.Addresses.getById(id: Long)
+
+#Supprimer par Id
+DELETE /address/:id  controllers.Addresses.delete(id: Long)
+
+#Retrouver tous les éléments
+GET /addresses controllers.Addresses.getAll()
+
+#Retrouver certains éléments
+GET /addresses/:fieldName/equals/:value controllers.Addresses.query(fieldName: String, value: String)

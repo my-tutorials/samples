@@ -12,6 +12,9 @@ public class Human extends Model{
     public String lastName;
     public Long age;
 
+    @ManyToOne
+    public Address address;
+
     public static Finder<Long, Human> find = 
             new Finder<Long, Human>(Long.class, Human.class);
 

@@ -17,6 +17,16 @@ App.Collections.Humans = Backbone.Collection.extend({
 	
 });
 
+App.Models.Address = Backbone.Model.extend({
+	urlRoot  : "/address"
+});
+
+App.Collections.Addresses = Backbone.Collection.extend({
+	url : "/addresses",
+	model : App.Models.Address
+	
+});
+
 App.Views.HumansListView = Backbone.View.extend({
     el : $("#humans_list"),
     initialize : function () {
@@ -31,10 +41,30 @@ App.Views.HumansListView = Backbone.View.extend({
 
     },
     render : function () {
-        var renderedContent = Mustache.to_html(this.template, {humans : this.collection.toJSON()} );
+        var renderedContent = Mustache.to_html(this.template, { humans : this.collection.toJSON() } );
         this.$el.html(renderedContent);
     }
 });
+
+App.Views.AddressesListView = Backbone.View.extend({
+    el : $("#addresses_list"),
+    initialize : function () {
+        this.template = $("#addresses_list_template").html();
+
+        //dès que la collection "change" j'actualise le rendu de la vue
+        _.bindAll(this, 'render');
+        this.collection.bind('reset', this.render);
+        this.collection.bind('change', this.render);
+        this.collection.bind('add', this.render);
+        this.collection.bind('remove', this.render);
+
+    },
+    render : function () {
+        var renderedContent = Mustache.to_html(this.template, { addresses : this.collection.toJSON() } );
+        this.$el.html(renderedContent);
+    }
+});
+
 
 
 App.Views.HumansListAgainView = Backbone.View.extend({
@@ -49,7 +79,7 @@ App.Views.HumansListAgainView = Backbone.View.extend({
         this.collection.bind('remove', this.render);
 	},
 	render : function () {
-        var renderedContent = this.template({humans : this.collection.models });
+        var renderedContent = this.template({ humans : this.collection.models });
         this.$el.html(renderedContent);			
 	}			
 });
@@ -62,11 +92,20 @@ function start() {
 
 	window.humansCollection = new App.Collections.Humans();
 
+	window.addressesCollection = new App.Collections.Addresses();
+
 	window.humansListView = new App.Views.HumansListView({collection : humansCollection});
+
+	window.addressesListView = new App.Views.AddressesListView({collection : addressesCollection});
 
 	window.humansListAgainView = new App.Views.HumansListAgainView({collection : humansCollection});
 
 	humansCollection.fetch({
+		success : function(data) { console.log(data); },
+		error : function(err) { throw err; }
+	});
+
+	addressesCollection.fetch({
 		success : function(data) { console.log(data); },
 		error : function(err) { throw err; }
 	});

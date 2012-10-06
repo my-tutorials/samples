@@ -4,11 +4,14 @@ import models.*;
 import play.data.*;
 import play.mvc.*;
 
-//import java.util.HashMap;
+
 import java.util.List;
-//import java.util.Map;
 
 import static play.libs.Json.toJson;
+
+import static play.libs.Json.fromJson;
+import org.codehaus.jackson.JsonNode;
+
 
 public class Humans extends Controller {
 
@@ -46,22 +49,33 @@ public class Humans extends Controller {
         - sinon c'est une création (POST)
 
     */
-    public static Result save() { //POST or PUT
-
-        Form<Human> form = form(Human.class).bindFromRequest();
-        Human model = form.get();
+    public static Result create() { //POST
 
 
+        Human model = fromJson(request().body().asJson(), Human.class);
 
-        if(model.id!=null) { //sauvegarde : PUT
-            model.update();
-        } else { //création : POST
-            /*System.out.println(model.firstName);
-            System.out.println(model.lastName);
-            System.out.println(model.age);*/
-        	model.save();
+        //Si c'est une nouvelle adresse
+        
+        if(model.address.id==null) {
+            model.address.save();
+            System.out.println(model.address.id);
         }
+        
+        model.save();
+
         return ok(toJson(model));
+        
+    }
+
+    public static Result update(Long id) { //PUT
+        
+        Human model = fromJson(request().body().asJson(), Human.class);
+
+        model.id = id;
+        model.update();
+
+        return ok(toJson(model));
+        
     }
 
     /*
